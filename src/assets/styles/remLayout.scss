@@ -1,0 +1,142 @@
+@import './vars.scss';
+
+.md-body-1, body {
+  font-size: $_14px;
+  font-weight: 400;
+  letter-spacing: .01em;
+  line-height: $_20px;
+}
+
+h1 {
+  font-size: $_24px;
+}
+
+.md-toolbar {
+  min-height: $_64px;
+  padding: 0 $_8px;
+}
+
+.md-toolbar.md-dense {
+  min-height: $_48px;
+}
+
+.md-button {
+  font-size: $_14px;
+  line-height: $_36px;
+  min-width: $_88px;
+  min-height: $_36px;
+  margin: $_6px $_8px;
+  padding: 0 $_16px;
+}
+
+.md-button.md-icon-button {
+  width: $_40px;
+  min-width: $_40px;
+  height: $_40px;
+  margin: 0 $_8px;
+  padding: $_8px;
+  line-height: $_24px;
+}
+
+.md-icon {
+  width: $_24px;
+  min-width: $_24px;
+  height: $_24px;
+  min-height: $_24px;
+}
+
+.md-sidenav .md-sidenav-content {
+  width: 5rem;
+}
+.md-toolbar .md-title {
+  font-size: $_20px;
+}
+.md-toolbar .md-title:first-child {
+  margin-left: $_8px;
+}
+.md-toolbar.md-large {
+  min-height: $_128px;
+}
+.md-list-item .md-list-item-container {
+  min-height: $_48px;
+  padding: 0 $_16px;
+  font-size: $_16px;
+}
+.md-list.md-dense {
+  padding: $_4px 0;
+}
+.md-list {
+  padding: $_8px 0;
+}
+.md-list.md-dense .md-list-item .md-list-item-container {
+  min-height: $_40px;
+  font-size: $_14px;
+}
+
+.md-tabs .md-tabs-navigation {
+  height: $_48px;
+  min-height: $_48px;
+}
+.md-tabs .md-tab-header {
+  min-width: $_72px;
+  max-width: 15.84rem;
+  padding: 0 $_12px;
+  font-size: $_14px;
+}
+.md-tabs .md-tab-indicator {
+  height: $_2px;
+}
+.md-card .md-card-content {
+  padding: $_16px;
+  font-size: $_14px;
+  line-height: $_22px;
+}
+.md-input-container label {
+  top: $_24px;
+  font-size: $_16px;
+  line-height: $_20px;
+}
+.md-input-container {
+  min-height: $_48px;
+  margin: $_4px 0 $_24px;
+  padding-top: $_16px;
+}
+.md-input-container input, .md-input-container textarea {
+  height: $_32px;
+  line-height: $_32px;
+}
+.md-input-container.md-input-focused label, .md-input-container.md-has-value label {
+  font-size: $_12px;
+}
+.md-input-container.md-input-focused input, .md-input-container.md-input-focused textarea, .md-input-container.md-has-value input, .md-input-container.md-has-value textarea {
+  font-size: $_16px;
+}
+.md-input-container .md-error, .md-input-container .md-count {
+  height: $_20px;
+  bottom: -0.44rem;
+  font-size: $_12px;
+}
+
+/* toastr */
+.toast-close-button {
+  font-size: $_20px;
+}
+@media all and (max-width: 240px) {
+  .cxlt-toastr-container > div {
+    padding: $_8px $_8px $_8px $_50px;
+    width: 2.64rem;
+  }
+}
+@media all and (min-width: 241px) and (max-width: 480px) {
+  .cxlt-toastr-container > div {
+    padding: $_8px $_8px $_8px $_50px;
+    width: 4.32rem;
+  }
+}
+@media all and (min-width: 481px) and (max-width: 768px) {
+  .cxlt-toastr-container > div {
+    padding: $_16px $_16px $_16px $_50px;
+    width: $_300px;
+  }
+}
+

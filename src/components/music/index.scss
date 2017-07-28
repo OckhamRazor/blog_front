@@ -1,0 +1,87 @@
+@import '../../assets/styles/vars.scss';
+@import '../../assets/styles/mixins.scss';
+
+$border-color: #e0e0e0;
+
+.music-play-tool {
+  display: flex;
+  height: $_60px;
+}
+.album-cover {
+  cursor: pointer;
+  position: relative;
+  border-right: 1px solid $border-color;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,.1);
+    transition: background-color .3s;
+  }
+  &:hover::after {
+    background: rgba(0,0,0,.6);
+  }
+  img {
+    width: $_60px;
+    height: $_60px;
+  }
+  .pause-icon, .play-icon {
+    z-index: 2;
+    color: #f5f5f5;
+    @include ac();
+  }
+}
+
+.info {
+  padding: $_10px $_16px;
+  flex: 1;
+}
+@media (max-width: 800px) {
+  .name, .author {
+    text-align: left;
+  }
+}
+.name, .author {
+  margin: 0;
+}
+
+.list-icon-wrapper {
+  width: $_60px;
+  height: $_60px;
+  padding-top: $_20px;
+  border-left: 1px solid $border-color;
+  cursor: pointer;
+  color: #999;
+  transition: color .2s ease;
+
+  &:hover {
+    color: #555;
+  }
+  .list-icon {
+    width: $_24px;
+    height: $_24px !important;
+  }
+}
+
+.music-play-list {
+  border-top: 1px solid $border-color;
+  padding: 0;
+
+  .music-play-item {
+    cursor: pointer;
+    transition: all .2s ease;
+    color: #757575;
+
+    &:hover {
+      color: #555;
+      background: #f5f5f5;
+    }
+  }
+  .music-play-item:not(:first-child) {
+    border-top: 1px solid $border-color;
+  }
+}

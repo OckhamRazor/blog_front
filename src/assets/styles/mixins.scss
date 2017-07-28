@@ -1,0 +1,49 @@
+// width height
+@mixin wh($width: 100%,$height: 100%){
+  width: $width;
+  height: $height;
+}
+// absolute left top
+@mixin alt($left:0 ,$top:0){
+  position: absolute;
+  left: $left;
+  top: $top;
+}
+// absolute left bottom
+@mixin alb($left:0 ,$bottom:0){
+  position: absolute;
+  left: $left;
+  bottom: $bottom;
+}
+// absolute right top
+@mixin art($right:0 ,$top:0){
+  position: absolute;
+  right: $right;
+  top: $top;
+}
+// absolute right bottom
+@mixin arb($right:0 ,$bottom:0){
+  position: absolute;
+  right: $right;
+  bottom: $bottom;
+}
+// absolute center
+@mixin ac(){
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+@mixin circle($r){
+  width: $r;
+  height: $r;
+  border-radius: 50%;
+  display: block;
+}
+%clearfix{
+  &:after{
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
