@@ -12,7 +12,7 @@
           <router-link v-if="item.noDropdown&&!item.hidden" :to="item.path" :key="index">
             <md-button md-menu-trigger>{{item.name}}</md-button>
           </router-link>
-           <md-menu md-align-trigger v-if="!item.noDropdown&&!item.hidden&&item.children.length>0" :key="index">
+          <md-menu md-align-trigger v-if="!item.noDropdown&&!item.hidden&&item.children.length>0" :key="index">
             <md-button md-menu-trigger>{{item.name}}</md-button>
             <md-menu-content>
               <router-link v-for="child in item.children" :key="child.name" :to="item.path + '/' + child.path">
@@ -23,7 +23,12 @@
         </template>
       </div>
       <div class="avatar-wrapper" v-if="avatar">
-        <img :src="avatar" alt="Avatar">
+        <md-menu md-align-trigger ref="avatar" md-direction="bottom left">
+          <img md-menu-trigger :src="avatar" alt="Avatar" class="md-ripper">
+          <md-menu-content>
+            <md-menu-item @click="signOut">登出</md-menu-item>
+          </md-menu-content>
+        </md-menu>
       </div>
     </div>
   </md-toolbar>
@@ -54,6 +59,12 @@ export default {
     },
     handleResize () {
       this.showToggle = document.body.clientWidth <= 1200
+    },
+    expandAvatar () {
+      this.$refs.avatar.open()
+    },
+    signOut () {
+      this.$store.commit('SIGN_OUT')
     }
   },
   created: function () {

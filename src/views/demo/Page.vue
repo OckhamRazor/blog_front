@@ -5,10 +5,12 @@
         <demo-message></demo-message>
       </md-tab>
 
-      <md-tab id="music" md-label="Music">
+      <md-tab id="markdown" md-label="Markdown">
+        <demo-markdown></demo-markdown>
       </md-tab>
 
-      <md-tab id="books" md-label="Books">
+      <md-tab id="article" md-label="文章">
+        <demo-article></demo-article>
       </md-tab>
 
       <md-tab id="pictures" md-label="Pictures">
@@ -18,12 +20,16 @@
 </template>
 
 <script>
-  import DemoMessage from '@/components/demo/Message'
+  import DemoMessage from '@/components/demo/message'
+  import DemoMarkdown from '@/components/demo/markdown'
+  import DemoArticle from '@/components/demo/article'
 
   export default {
     name: 'DemoPage',
     components: {
-      DemoMessage
+      DemoMessage,
+      DemoMarkdown,
+      DemoArticle
     }
   }
 </script>

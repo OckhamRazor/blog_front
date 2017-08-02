@@ -29,6 +29,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
+        // target: 'http://localhost:3000',
         target: 'https://easy-mock.com/mock/5974ba18a1d30433d83aeaf8',
         changeOrigin: true
       }

@@ -17,6 +17,8 @@
     "axios": "^0.16.2",
     "babel-polyfill": "^6.23.0",
     "cxlt-vue2-toastr": "^1.0.12",
+    "escape-goat": "^1.2.0",
+    "mavon-editor": "^2.1.12",
     "normalize.css": "^7.0.0",
     "path-match": "^1.2.4",
     "siren-wave": "0.0.3",

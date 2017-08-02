@@ -1,5 +1,5 @@
 import User from '@/api/user'
-import { getToken } from '@/utils/auth'
+import { getToken, removeToken } from '@/utils/auth'
 // initial state
 const state = {
   token: getToken(),
@@ -46,6 +46,10 @@ const mutations = {
   },
   SET_INTRODUCTION: (state, introduction) => {
     state.introduction = introduction
+  },
+  SIGN_OUT: (state) => {
+    removeToken()
+    window.location.href = '/'
   }
 }
 

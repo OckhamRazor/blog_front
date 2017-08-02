@@ -7,6 +7,7 @@ import * as getters from './getters'
 import user from './modules/user'
 import app from './modules/app'
 import permission from './modules/permission'
+import article from './modules/article'
 
 Vue.use(Vuex)
 
@@ -18,7 +19,8 @@ export default new Vuex.Store({
   modules: {
     user,
     app,
-    permission
+    permission,
+    article
   },
   strict: debug,
   plugins: debug ? [createLogger()] : []

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1 class="main-title">SALUT</h1>
-    <img src="/static/images/music-8.jpg" alt="Avatar" class="avatar">
+    <img src="/static/images/music-8.jpg" alt="Poster" class="poster">
     <music class="music-wrapper"></music>
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
 .main-title {
   margin: 1rem auto;
 }
-.avatar {
+.poster {
   width: 5rem;
   height: 5rem;
   border-radius: 50%;

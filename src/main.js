@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import VueMaterial from 'vue-material'
 import Vuelidate from 'vuelidate'
 import CxltToastr from 'cxlt-vue2-toastr'
+import mavonEditor from 'mavon-editor'
 // locale
 
 // style
@@ -10,8 +11,9 @@ import 'normalize.css'
 import 'vue-material/dist/vue-material.css'
 import 'animate.css'
 import 'cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css'
-import '@/assets/styles/common.scss'
+import 'mavon-editor/dist/css/index.css'
 import '@/assets/styles/remLayout.scss'
+import '@/assets/styles/common.scss'
 // fonts
 import '@/assets/js/iconfont'
 // components
@@ -26,6 +28,7 @@ import registerTheme from '@/assets/js/customTheme'
 Vue.use(VueRouter)
 Vue.use(VueMaterial)
 Vue.use(Vuelidate)
+Vue.use(mavonEditor)
 
 var toastrConfigs = {
   position: 'bottom right',

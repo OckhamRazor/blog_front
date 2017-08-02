@@ -72,6 +72,9 @@ h1 {
   min-height: $_40px;
   font-size: $_14px;
 }
+.md-list-item-expand {
+  min-height: $_48px;
+}
 
 .md-tabs .md-tabs-navigation {
   height: $_48px;
@@ -116,6 +119,20 @@ h1 {
   bottom: -0.44rem;
   font-size: $_12px;
 }
+.md-speed-dial.md-direction-top [md-fab-trigger] {
+  margin-top: $_8px;
+}
+.md-button.md-fab {
+  width: $_56px;
+  height: $_56px;
+  line-height: $_56px;
+  border-radius: $_56px;
+}
+.md-button.md-fab.md-mini {
+  width: $_40px;
+  height: $_40px;
+  line-height: $_40px;
+}
 
 /* toastr */
 .toast-close-button {
@@ -140,3 +157,7 @@ h1 {
   }
 }
 
+/* markdown */
+.markdown-body {
+  font-size: $_14px;
+}

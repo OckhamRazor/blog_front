@@ -6,7 +6,7 @@
         <icon-svg iconClass="pause" class="pause-icon" v-show="playing"></icon-svg>
         <icon-svg iconClass="play-copy" class="play-icon" v-show="!playing"></icon-svg>
       </div>
-      <div class="info">
+      <div class="music-info">
         <p class="name">{{currentMusic.name}}</p>
         <p class="author">{{currentMusic.author}}</p>
       </div>
