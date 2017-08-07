@@ -70,22 +70,41 @@ instance.interceptors.response.use(
   })
 
 // 二次封装方法
-const get = (url, data) => {
+// GET 获取信息
+const getRequest = (url, data) => {
   return instance
     .get(url, data)
     .catch(handleError)
 }
-
-const post = (url, data) => {
+// POST 创建一个新资源
+const postRequest = (url, data) => {
   return instance
     .post(url, data)
     .catch(handleError)
 }
-
-const postJSON = (url, data) => {
+// POST 创建一个新资源
+const postJSONRequest = (url, data) => {
   data = Qs.stringify(data)
   return instance
     .post(url, data)
+    .catch(handleError)
+}
+// PATCH 更新指定信息
+const patchRequest = (url, data) => {
+  return instance
+    .patch(url, data)
+    .catch(handleError)
+}
+// PUT 提供所有信息
+const putRequest = (url, data) => {
+  return instance
+    .put(url, data)
+    .catch(handleError)
+}
+// DELETE 删除资源
+const deleteRequest = (url, data) => {
+  return instance
+    .delete(url, data)
     .catch(handleError)
 }
 
@@ -100,7 +119,10 @@ function handleData (data) {
 }
 
 export default {
-  postJSON: postJSON,
-  post: post,
-  get: get
+  postJSON: postJSONRequest,
+  post: postRequest,
+  get: getRequest,
+  patch: patchRequest,
+  put: putRequest,
+  delete: deleteRequest
 }

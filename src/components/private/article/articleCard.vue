@@ -46,7 +46,7 @@
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/styles/vars.scss';
+@import '~@/assets/styles/vars.scss';
 
 .card-container {
   border-bottom: 1px solid #ccc;
@@ -71,13 +71,18 @@
 
   .content-poster {
     width: 30%;
+    padding-right: $_16px;
   }
   .content-body {
     width: 70%;
-    padding-left: $_16px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .content-poster {
+    display: none;
   }
 }
 </style>

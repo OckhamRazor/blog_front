@@ -25,12 +25,10 @@
           content: content
         })
 
-        if (_result.code > 0) {
-          this.$toast.success({
-            title: '操作成功',
-            message: _result.message || ''
-          })
-        }
+        this.$toast.success({
+          title: '操作成功',
+          message: _result.message || ''
+        })
       }
     }
   }

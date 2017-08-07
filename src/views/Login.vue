@@ -2,11 +2,12 @@
   <div class="container">
     <md-card class="login-box">
       <h3 class="box-title">用户登录</h3>
+      <ra-progress-loader v-show="loading"></ra-progress-loader>
       <transition name="shake"
         enter-active-class="animated shake"
         leave-active-class="animated fadeOut">
-        <div class="alert alert-danger message" v-if="showMessage">
-          <icon-svg iconClass="tishi"></icon-svg><span class="message-content">{{message}}</span>
+        <div class="alert alert-danger message" v-if="message !== ''">
+          <ra-icon-svg icon="tishi"/><span class="message-content">{{message}}</span>
         </div>
       </transition>
       <form novalidate @submit.prevent="login($v.user)" autocomplete="false">
@@ -23,7 +24,7 @@
           </md-input-container>
         </md-card-content>
         <md-card-actions>
-          <md-button type="submit" class="md-raised md-primary login-button" :disabled="disabled">登录</md-button>
+          <md-button type="submit" class="md-raised md-primary login-button">登录</md-button>
         </md-card-actions>
       </form>
     </md-card>
@@ -44,8 +45,7 @@
           password: ''
         },
         message: '',
-        showMessage: false,
-        disabled: false
+        loading: false
       }
     },
     validations: {
@@ -71,45 +71,46 @@
       async login (value) {
         value.$touch() // 手动验证表单
         if (!value.$error) {
-          this.showMessage = false
-          this.disabled = true
+          this.message = ''
+          this.loading = true
 
           const result = await User.signIn(this.user)
 
+          this.loading = false
           this.handleResult(result) // 处理提示信息
         }
       },
 
       handleResult (result) {
-        this.disabled = false
-        if (result.code > 0) {
-          const data = result.data
+        const data = result.data
+        if (data !== false) {
           setToken(data.token) // 存储token至localStorage
           this.$store.commit('SET_TOKEN', data.token)
           this.$router.push({path: this.$route.query.redirect || '/'})
-          return true
+        } else {
+          this.message = result.message
         }
-
-        this.message = result.message || ''
-        this.showMessage = Boolean(this.message)
-        return false
       }
     }
   }
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/styles/vars.scss';
+@import '~@/assets/styles/vars.scss';
 
 .container {
   display: flex;
   min-height: 100vh;
   padding: $_20px;
+  background: url('~@/assets/images/background-2.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .login-box {
   width: $_350px;
   margin: auto;
   padding: $_20px;
+  position: relative;
 }
 .box-title {
   font-size: $_22px;

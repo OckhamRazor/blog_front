@@ -12,9 +12,7 @@
     <div>
       <h5 class="title">Fllow Me</h5>
       <a :href="user.github" target="_blank">
-        <icon-svg iconClass="github" class="contact-icon">
-
-        </icon-svg>
+        <ra-icon-svg icon="icon-github" class="contact-icon"/>
       </a>
     </div>
   </div>
@@ -37,7 +35,7 @@
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/styles/vars.scss';
+@import '~@/assets/styles/vars.scss';
 
 .avatar {
   width: $_128px;

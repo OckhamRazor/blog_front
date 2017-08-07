@@ -133,6 +133,16 @@ h1 {
   height: $_40px;
   line-height: $_40px;
 }
+.md-input-container .md-icon:not(.md-icon-delete) ~ label {
+  left: $_36px;
+}
+.md-input-container .md-icon:not(.md-icon-delete) ~ .md-input, .md-input-container .md-icon:not(.md-icon-delete) ~ .md-textarea, .md-input-container .md-icon:not(.md-icon-delete) ~ .md-file {
+  left: $_12px;
+  margin-left: $_12px;
+}
+.md-input-container.md-input-focused:after {
+  height: $_2px !important;
+}
 
 /* toastr */
 .toast-close-button {

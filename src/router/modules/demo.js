@@ -11,7 +11,7 @@ const router = [
     noDropdown: true,
     redirect: '/demo/',
     children: [
-      { path: '', component: DemoPage, name: '组件使用Demo', role: [] }
+      { path: '', component: DemoPage, name: '组件使用Demo', role: ['admin'] }
     ]
   }
 ]

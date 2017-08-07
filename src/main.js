@@ -4,6 +4,9 @@ import VueMaterial from 'vue-material'
 import Vuelidate from 'vuelidate'
 import CxltToastr from 'cxlt-vue2-toastr'
 import mavonEditor from 'mavon-editor'
+import RaComponents from '@/components/public/index'
+import VueWeChatTitle from 'vue-wechat-title'
+
 // locale
 
 // style
@@ -18,7 +21,6 @@ import '@/assets/styles/common.scss'
 import '@/assets/js/iconfont'
 // components
 import App from './App.vue'
-import IconSvg from '@/components/IconSvg'
 // others
 import store from './store'
 import router from './router'
@@ -29,6 +31,8 @@ Vue.use(VueRouter)
 Vue.use(VueMaterial)
 Vue.use(Vuelidate)
 Vue.use(mavonEditor)
+Vue.use(VueWeChatTitle)
+Vue.use(RaComponents)
 
 var toastrConfigs = {
   position: 'bottom right',
@@ -39,8 +43,6 @@ var toastrConfigs = {
 }
 Vue.use(CxltToastr, toastrConfigs)
 
-// 自定义组件注册
-Vue.component('iconSvg', IconSvg)
 // 注册主题
 registerTheme()
 

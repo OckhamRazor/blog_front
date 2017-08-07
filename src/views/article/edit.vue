@@ -1,27 +1,63 @@
 <template>
   <div class="container">
-    编辑文章
-    <div>
-      工具条
-      <span>撤销到上一次保存</span>
-      <span>撤销所有修改</span>
-      <span>发布更新</span>
-    </div>
-    <mavon-editor class="markdown-editor" :ishljs="false" v-model="plainText" @save="save" :subfield="subfield" code_style="code-hybrid"></mavon-editor>
+    <form novalidate @submit.stop.prevent="submit($v.formData)">
+      <div class="form-header">
+        <h1>新增文章</h1>
+        <div class="form-buttons">
+          <md-button class="md-raised md-primary" type="submit">Update It</md-button>
+        </div>
+      </div>
+      <!-- 文章标题 -->
+      <md-input-container :class="{'md-input-invalid':  $v.formData.title.$error }">
+        <label>文章标题</label>
+        <md-input name="title" type="text" v-model="formData.title" required @input="$v.formData.title.$touch()"></md-input>
+        <span class="md-error" v-show="!$v.formData.title.required">请输入文章标题</span>
+      </md-input-container>
+      <!-- 文章关键字 -->
+      <md-chips v-model="formData.tags" :md-max="5" md-input-placeholder="关键字">
+        <template scope="chip" slot="chip">
+          <span>{{ chip.value }}</span>
+        </template>
+      </md-chips>
+      <!-- 文章描述 -->
+      <md-input-container>
+        <label>简要的描述</label>
+        <md-textarea type="text" v-model="formData.description" :maxlength="300"></md-textarea>
+      </md-input-container>
+    </form>
+    <article-editor :id="id" :plainText="plainText"></article-editor>
   </div>
 </template>
 
 <script>
   import Article from '@/api/article'
+  import ArticleEditor from '@/components/private/article/editor'
+  import { required } from 'vuelidate/lib/validators'
   const escapeGoat = require('escape-goat')
 
   export default {
-    name: 'DemoMarkDown',
+    name: 'ArticleEdit',
+    components: {
+      ArticleEditor
+    },
+    computed: {
+      plainText () {
+        if (!this.formData || !this.formData.plainText) return ''
+
+        return escapeGoat.unescape(this.formData.plainText)
+      }
+    },
     data () {
       return {
-        value: '',
-        plainText: '',
-        subfield: true
+        formData: {},
+        id: ''
+      }
+    },
+    validations: {
+      formData: {
+        title: {
+          required
+        }
       }
     },
     methods: {
@@ -29,56 +65,53 @@
         let path = this.$route.path
         let pathArr = path.split('/')
 
-        return pathArr[pathArr.length - 1]
+        let id = pathArr[pathArr.length - 1]
+
+        return id
       },
-      async getArticle (id) {
-        if (typeof id === 'undefined') return
-        const result = await Article.getArticle(id)
-        if (result.code > 0) {
-          const data = result.data
-          const plainText = data.plainText
+      async submit (value) {
+        value.$touch() // 手动验证表单
+        if (!value.$error) {
+          const _result = await Article.edit(this.id, this.formData)
+          // const _data = _result.data
 
-          this.plainText = escapeGoat.unescape(plainText)
-        }
-      },
-      async save (value, render) {
-        let plainText = escapeGoat.escape(value)
-        let html = escapeGoat.escape(render)
-
-        plainText = plainText.replace(/\n/g, '\\n').replace(/\r/g, '\\r') // 替换换行符
-        html = html.replace(/\n/g, '\\n').replace(/\r/g, '\\r') // 替换换行符
-
-        var _result = await Article.save({
-          html: html,
-          plainText: plainText
-        })
-
-        if (_result.code > 0) {
           this.$toast.success({
             title: '操作成功',
             message: _result.message || ''
           })
+
+          setTimeout(() => {
+            this.$router.push('/article/' + this.id)
+          }, 1200)
         }
+      },
+      async getArticle (id) {
+        if (typeof id === 'undefined' || id === false || id === '' || id === null) return
+
+        const result = await Article.getArticle(id, {
+          html: false,
+          plainText: true
+        })
+        const data = result.data
+        this.formData = data
       }
     },
     created: function () {
-      let id = this.getArticleId()
-      this.getArticle(id)
+      this.id = this.getArticleId()
+      this.getArticle(this.id)
     }
   }
 </script>
 
 <style lang="scss" scoped>
 @import '../../assets/styles/vars.scss';
-.container {
-  margin-top: $_50px;
+
+.form-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-.page-title {
-  font-size: $_24px;
-  font-weight: normal;
-}
-.markdown-editor {
-  min-height: calc(100vh - 4rem);
-  z-index: 998;
+.form-buttons {
+  text-align: right;
 }
 </style>

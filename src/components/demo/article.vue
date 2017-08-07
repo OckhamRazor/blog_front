@@ -17,12 +17,10 @@
     methods: {
       async getArticle (id) {
         const result = await Article.getArticle(id)
-        if (result.code > 0) {
-          const data = result.data
-          const content = data.content
+        const data = result.data
+        const content = data.content
 
-          this.content = escapeGoat.unescape(content)
-        }
+        this.content = escapeGoat.unescape(content)
       }
     },
     created () {

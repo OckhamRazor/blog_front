@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <transition name="page-change" enter-active-class="animated fadeIn">
+      <router-view v-wechat-title="$route.meta.title"></router-view>
+    </transition>
   </div>
 </template>
 

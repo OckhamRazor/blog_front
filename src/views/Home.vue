@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Music from '@/components/music'
+import Music from '@/components/private/music'
 export default {
   name: 'Home',
   components: {

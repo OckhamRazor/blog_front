@@ -3,37 +3,35 @@
     <div class="music-play-tool">
       <div class="album-cover" @click="togglePlay">
         <img :src="currentMusic.cover" alt="music-cover"/>
-        <icon-svg iconClass="pause" class="pause-icon" v-show="playing"></icon-svg>
-        <icon-svg iconClass="play-copy" class="play-icon" v-show="!playing"></icon-svg>
+        <ra-icon-svg icon="icon-pause" class="pause-icon" v-show="playing"></ra-icon-svg>
+        <ra-icon-svg icon="icon-play-copy" class="play-icon" v-show="!playing"></ra-icon-svg>
       </div>
       <div class="music-info">
         <p class="name">{{currentMusic.name}}</p>
         <p class="author">{{currentMusic.author}}</p>
       </div>
       <div class="list-icon-wrapper md-dense" @click="showPlayList">
-        <icon-svg iconClass="musiclist" class="list-icon"></icon-svg>
+        <ra-icon-svg icon="icon-musiclist" class="list-icon"></ra-icon-svg>
       </div>
       <audio v-on:loadeddata="play" ref="audioPlayer" preload="meta"></audio>
     </div>
-    <slide-up-down :active="displayList" :duration="300">
+    <ra-slide-up-down :active="displayList" :duration="300">
       <md-list class="music-play-list md-dense">
         <md-list-item @click="change(item)" class="music-play-item" v-for="(item, index) in playList" :key="'music-item-' + index">
           <music-item :index="index" :item="item"></music-item>
         </md-list-item>
       </md-list>
-    </slide-up-down>
+    </ra-slide-up-down>
   </md-whiteframe>
 </template>
 
 <script>
-import SlideUpDown from '@/components/slideUpDown'
-import MusicItem from '@/components/music/musicItem'
+import MusicItem from './musicItem'
 
 export default {
   name: 'Music',
 
   components: {
-    SlideUpDown,
     MusicItem
   },
 
@@ -86,6 +84,7 @@ export default {
 
 }
 </script>
+
 <style lang="scss" scoped>
-  @import './index.scss'
+  @import './index.scss';
 </style>

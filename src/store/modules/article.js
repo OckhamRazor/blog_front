@@ -1,16 +1,22 @@
 // initial state
 const state = {
-  currentCategory: {
-    code: 12,
-    name: '新技术',
-    total: 8
+  // 文章列表
+  queryParams: {
+    code: null,
+    keywords: null
   }
 }
 
 // getters
 const getters = {
+  getQueryParams () {
+    return state.queryParams
+  },
+  getQueryParamsKeywords () {
+    return state.queryParams.keywords
+  },
   getCateGoryCode () {
-    return state.currentCategory.code
+    return state.queryParams.code
   }
 }
 
@@ -20,8 +26,11 @@ const actions = {
 
 // mutations (非异步操作)
 const mutations = {
-  SET_CATEGORY: (state, gateGory) => {
-    state.currentCategory = gateGory
+  SET_QUERY_CODE: (state, code) => {
+    state.queryParams.code = code
+  },
+  SET_QUERY_KEYWORDS: (state, keywords) => {
+    state.queryParams.keywords = keywords
   }
 }
 

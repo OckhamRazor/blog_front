@@ -1,13 +1,13 @@
 <template>
   <md-toolbar class="md-dense container" md-theme="custom">
-    <md-button class="md-icon-button" @click="toggleSideBar" v-if="showToggle">
+    <md-button class="md-icon-button" @click="toggleSideBar" v-if="viewMode === 'mobile'">
       <md-icon>menu</md-icon>
     </md-button>
     <div class="content-wrapper">
-      <router-link to="/home" v-if="!showToggle">
+      <router-link to="/home" v-if="viewMode === 'pc'">
         <h3 class="navbar-title">GC's World</h3>
       </router-link>
-      <div class="navbar-menu" v-if="!showToggle">
+      <div class="navbar-menu" v-if="viewMode === 'pc'">
         <template v-for="(item, index) in routes">
           <router-link v-if="item.noDropdown&&!item.hidden" :to="item.path" :key="index">
             <md-button md-menu-trigger>{{item.name}}</md-button>
@@ -15,9 +15,11 @@
           <md-menu md-align-trigger v-if="!item.noDropdown&&!item.hidden&&item.children.length>0" :key="index">
             <md-button md-menu-trigger>{{item.name}}</md-button>
             <md-menu-content>
-              <router-link v-for="child in item.children" :key="child.name" :to="item.path + '/' + child.path">
-                <md-menu-item>{{child.name}}</md-menu-item>
-              </router-link>
+              <template v-for="child in item.children">
+                <router-link v-if="!child.hidden"  :key="child.name" :to="item.path + '/' + child.path">
+                  <md-menu-item>{{child.name}}</md-menu-item>
+                </router-link>
+              </template>
             </md-menu-content>
           </md-menu>
         </template>
@@ -40,7 +42,7 @@ export default {
   name: 'Navbar',
   data () {
     return {
-      showToggle: false
+      viewMode: 'pc'
     }
   },
   computed: {
@@ -58,7 +60,7 @@ export default {
       this.$store.commit('TOGGLE_SIDEBAR')
     },
     handleResize () {
-      this.showToggle = document.body.clientWidth <= 1200
+      this.viewMode = document.body.clientWidth <= 1200 ? 'mobile' : 'pc'
     },
     expandAvatar () {
       this.$refs.avatar.open()

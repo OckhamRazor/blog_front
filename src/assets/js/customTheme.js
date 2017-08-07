@@ -13,6 +13,12 @@ export default function registerTheme () {
     },
     contact: {
       primary: 'teal'
+    },
+    orange: {
+      primary: {
+        color: 'orange',
+        hue: 500
+      }
     }
   })
 }

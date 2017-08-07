@@ -3,7 +3,7 @@
     <sidebar class="sidebar"></sidebar>
 		<div class="main-container">
 			<navbar class="navbar"></navbar>
-			<app-main class="app-main"></app-main>
+      <app-main class="app-main"></app-main>
 		</div>
 	</div>
 </template>
@@ -63,7 +63,7 @@
   z-index: 1000;
 }
 .app-main {
-  margin: $_48px auto 0 auto;
+  margin: $_64px auto $_50px auto;
   max-width: 24rem;
   width: 100%;
   padding: 0 $_16px;

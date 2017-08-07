@@ -12,7 +12,7 @@
   import CustomAnimate from '@/utils/customAnimate'
 
   export default {
-    name: 'ScrollToTop',
+    name: 'raScrollToTop',
     data () {
       return {
         scrollY: 0,
@@ -45,7 +45,7 @@
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/styles/vars.scss';
+@import '~@/assets/styles/vars.scss';
 .small-menu {
   position: fixed;
   bottom: $_14px;

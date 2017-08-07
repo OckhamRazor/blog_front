@@ -4,13 +4,13 @@ export default {
 
   // 获取公告信息
   getInfo (queryParams) {
-    return http.get('/notice/info', {
+    return http.get('/notice', {
       params: queryParams
     })
   },
 
   // 编辑公告信息
   edit (data) {
-    return http.postJSON('/notice/edit', data)
+    return http.patch('/notice', data)
   }
 }

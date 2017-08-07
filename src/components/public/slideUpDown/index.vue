@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'SlideUpDown',
+    name: 'raSlideUpDown',
     props: {
       active: Boolean,
       duration: {

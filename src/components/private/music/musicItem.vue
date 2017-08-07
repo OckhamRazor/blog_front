@@ -21,7 +21,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '../../assets/styles/vars.scss';
+@import '~@/assets/styles/vars.scss';
 .container {
   display: flex;
   width: 100%;

@@ -25,9 +25,9 @@ import demoRouter from './modules/demo'
 Vue.use(VueRouter)
 
 export const constantRouterMap = [
-  { path: '/login', component: Login, hidden: true, noDropdown: true },
-  { path: '/404', component: Err404, hidden: true, noDropdown: true },
-  { path: '/401', component: Err401, hidden: true, noDropdown: true },
+  { path: '/login', component: Login, hidden: true, noDropdown: true, meta: {title: '登录'} },
+  { path: '/404', component: Err404, hidden: true, noDropdown: true, meta: {title: '无人深空'} },
+  { path: '/401', component: Err401, hidden: true, noDropdown: true, meta: {title: '禁止进入'} },
   {
     path: '/',
     component: Layout,
@@ -35,7 +35,9 @@ export const constantRouterMap = [
     name: '首页',
     hidden: true,
     noDropdown: false,
-    children: [{ path: 'home', component: Home }]
+    children: [
+      {path: 'home', component: Home}
+    ]
   },
   {
     path: '/article',
@@ -59,8 +61,7 @@ export const constantRouterMap = [
     children: [
       { path: 'wave', component: More, name: '波浪', role: [] }
     ]
-  },
-  ...demoRouter
+  }
 ]
 
 export default new VueRouter({
@@ -70,15 +71,16 @@ export default new VueRouter({
 
 // 动态加载路由
 export const asyncRouterMap = [
+  ...demoRouter,
   {
-    path: '/manage',
+    path: '/dashboard',
     component: Layout,
     name: '管理',
     meta: { role: ['admin'], requireAuth: true },
     noDropdown: false,
     hidden: false,
     children: [
-      { path: 'edit', component: ArticleEdit, name: '编辑文章', meta: { role: ['admin'], requireAuth: true } },
+      { path: 'edit/:id', component: ArticleEdit, name: '编辑文章', meta: { role: ['admin'], requireAuth: true }, hidden: true },
       { path: 'add', component: ArticleAdd, name: '新增文章', meta: { role: ['admin'], requireAuth: true } }
     ]
   },
