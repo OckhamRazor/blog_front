@@ -27,8 +27,8 @@
       <div class="avatar-wrapper" v-if="avatar">
         <md-menu md-align-trigger ref="avatar" md-direction="bottom left">
           <img md-menu-trigger :src="avatar" alt="Avatar" class="md-ripper">
-          <md-menu-content>
-            <md-menu-item @click="signOut">登出</md-menu-item>
+          <md-menu-content class="profile-card">
+            <profile-card2></profile-card2>
           </md-menu-content>
         </md-menu>
       </div>
@@ -37,9 +37,13 @@
 </template>
 <script>
 import { mapState, mapGetters } from 'vuex'
+import profileCard2 from '@/components/private/user/profileCard2'
 
 export default {
   name: 'Navbar',
+  components: {
+    profileCard2
+  },
   data () {
     return {
       viewMode: 'pc'
@@ -50,9 +54,7 @@ export default {
       routes: 'permissionRouters'
     }),
     ...mapState({
-      username: state => state.user.username,
-      avatar: state => state.user.avatar,
-      introduction: state => state.user.introduction
+      avatar: state => state.user.avatar
     })
   },
   methods: {
@@ -64,9 +66,6 @@ export default {
     },
     expandAvatar () {
       this.$refs.avatar.open()
-    },
-    signOut () {
-      this.$store.commit('SIGN_OUT')
     }
   },
   created: function () {
@@ -112,5 +111,8 @@ export default {
     @include circle($_36px);
     display: inline-block;
   }
+}
+.profile-card {
+  width: 250px;
 }
 </style>

@@ -19,7 +19,7 @@ const getters = {
 // actions (异步操作)
 const actions = {
   async getUserInfo ({commit, state}) {
-    const result = await User.getUserInfo({token: state.token})
+    const result = await User.getUserInfo()
     const data = result.data || {}
     commit('SET_ROLES', data.roles)
     commit('SET_NAME', data.username)

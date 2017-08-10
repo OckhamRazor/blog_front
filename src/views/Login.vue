@@ -12,10 +12,10 @@
       </transition>
       <form novalidate @submit.prevent="login($v.user)" autocomplete="false">
         <md-card-content>
-          <md-input-container :class="{'md-input-invalid':  $v.user.userName.$error }">
+          <md-input-container :class="{'md-input-invalid':  $v.user.username.$error }">
             <label>用户名</label>
-            <md-input v-model="user.userName" name="userName" @input="$v.user.userName.$touch()"></md-input>
-            <span class="md-error" v-show="!$v.user.userName.required">请输入用户名</span>
+            <md-input v-model="user.username" name="username" @input="$v.user.username.$touch()"></md-input>
+            <span class="md-error" v-show="!$v.user.username.required">请输入用户名</span>
           </md-input-container>
           <md-input-container :class="{'md-input-invalid':  $v.user.password.$error }">
             <label>密码</label>
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-  import User from '@/api/user'
+  import Auth from '@/api/auth'
   import { setToken } from '@/utils/auth'
   import { required } from 'vuelidate/lib/validators'
 
@@ -41,7 +41,7 @@
     data () {
       return {
         user: {
-          userName: '',
+          username: '',
           password: ''
         },
         message: '',
@@ -50,7 +50,7 @@
     },
     validations: {
       user: {
-        userName: {
+        username: {
           required
         },
         password: {
@@ -74,7 +74,7 @@
           this.message = ''
           this.loading = true
 
-          const result = await User.signIn(this.user)
+          const result = await Auth.signIn(this.user)
 
           this.loading = false
           this.handleResult(result) // 处理提示信息
@@ -82,8 +82,9 @@
       },
 
       handleResult (result) {
+        const status = result.status
         const data = result.data
-        if (data !== false) {
+        if (status === 'success') {
           setToken(data.token) // 存储token至localStorage
           this.$store.commit('SET_TOKEN', data.token)
           this.$router.push({path: this.$route.query.redirect || '/'})

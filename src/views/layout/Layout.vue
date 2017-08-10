@@ -1,8 +1,11 @@
 <template>
 	<div class="app-wrapper">
+    <!-- 侧边栏 -->
     <sidebar class="sidebar"></sidebar>
 		<div class="main-container">
+      <!-- 顶部导航 -->
 			<navbar class="navbar"></navbar>
+      <!-- 页面内容 -->
       <app-main class="app-main"></app-main>
 		</div>
 	</div>
