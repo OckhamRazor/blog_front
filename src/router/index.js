@@ -4,7 +4,9 @@ import { filterByWhiteList } from './filter'
 
 // 登录拦截器
 router.beforeEach(async (to, from, next) => {
-  if (store.state.user.token) {  // 通过vuex state获取当前的token是否存在
+  if (to.path === '/login') {
+    next()
+  } else if (store.state.user.token) {  // 通过vuex state获取当前的token是否存在
     // 判断当前用户是否拉取user info
     if (store.getters.roles.length === 0) {
       const data = await store.dispatch('getUserInfo')

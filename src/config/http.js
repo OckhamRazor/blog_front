@@ -43,10 +43,7 @@ instance.interceptors.response.use(
         case 401:
           // 401 清除token信息并跳转到登录页面
           // store.commit('SIGN_OUT')
-          router.replace({
-            path: 'login',
-            query: {redirect: router.currentRoute.fullPath}
-          })
+          store.commit('OPEN_DIALOG', 0)
           break
         case 404:
           // 跳转到404页面
