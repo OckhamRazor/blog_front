@@ -1,16 +1,15 @@
 <template>
    <div class="container">
-    <div class="panel-title" v-if="viewMode === 'mobile'">
+    <div class="panel-title">
       <search-bar></search-bar>
     </div>
     <div class="panel-body">
       <div>
-        <list-card></list-card>
+        <list-card :list="articleList"></list-card>
       </div>
       <transition name="slide" enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight">
-        <div v-if="viewMode === 'pc'">
-          <category-card></category-card>
-          <profile-card class="profile"></profile-card>
+        <div>
+          <category-card :list="categoryStatisticsList"></category-card>
         </div>
       </transition>
     </div>
@@ -18,37 +17,63 @@
 </template>
 
 <script>
+  import Article from '@/api/article'
+
   import ArticleCard from '@/components/private/article/articleCard'
   import CategoryCard from '@/components/private/article/categoryCard'
-  import ProfileCard from '@/components/private/user/profileCard'
   import ListCard from '@/components/private/article/listCard'
   import searchBar from '@/components/private/article/searchBar'
+
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'ArticleList',
     components: {
       ArticleCard,
       CategoryCard,
-      ProfileCard,
       ListCard,
       searchBar
     },
+    computed: {
+      ...mapGetters({
+        queryCategory: 'getCategory',
+        queryKeywords: 'getQueryParamsKeywords'
+      })
+    },
+    watch: {
+      queryCategory (params) {
+        this.getArticleList()
+      },
+      queryKeywords (params) {
+        this.getArticleList()
+      }
+    },
     data () {
       return {
-        viewMode: 'pc'
+        categoryStatisticsList: [],
+        articleList: []
       }
     },
     methods: {
-      handleResize () {
-        this.viewMode = document.body.clientWidth <= 1200 ? 'mobile' : 'pc'
+      async getCategoryStatisticsList () {
+        const result = await Article.getCategoryStatisticsList()
+        if (result.success) {
+          this.categoryStatisticsList = result.data || []
+        }
+      },
+
+      async getArticleList () {
+        let query = {
+          keywords: this.queryKeywords,
+          category: this.queryCategory
+        }
+        const result = await Article.getPublishedArticleList(query)
+        this.articleList = result.data || []
       }
     },
     created: function () {
-      window.addEventListener('resize', this.handleResize)
-      this.handleResize()
-    },
-    beforeDestroy: function () {
-      window.removeEventListener('resize', this.handleResize)
+      this.getCategoryStatisticsList()
+      this.getArticleList()
     }
   }
 </script>

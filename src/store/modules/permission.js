@@ -1,29 +1,30 @@
-import { asyncRouterMap, constantRouterMap } from '@/router/list'
+import { routerMap } from '@/router/list'
 import { deepClone } from '@/utils'
 
 /**
  * 通过meta.role判断是否与当前用户权限匹配
- * @param roles
+ * @param role
  * @param route
  */
-function hasPermission (roles, route) {
-  if (route.meta && route.meta.role) {
-    return roles.some(role => route.meta.role.indexOf(role) >= 0)
+function hasPermission (role, route) {
+  if (route.meta && route.meta.roles) {
+    // 判断路由权限
+    return route.meta.roles.indexOf(role) >= 0
   } else {
     return true
   }
 }
 
 /**
- * 递归过滤异步路由表，返回符合用户角色权限的路由表
- * @param asyncRouterMap
- * @param roles
+ * 递归过滤路由表，返回符合用户角色权限的路由表
+ * @param routerMap
+ * @param role
  */
-function filterAsyncRouter (asyncRouterMap, roles) {
-  const accessedRouters = asyncRouterMap.filter(route => {
-    if (hasPermission(roles, route)) {
-      if (route.children && route.children.length) {
-        route.children = filterAsyncRouter(route.children, roles)
+function filterRouter (routerMap, role) {
+  const accessedRouters = routerMap.filter(route => {
+    if (hasPermission(role, route)) {
+      if (route.children && route.children.length > 0) {
+        route.children = filterRouter(route.children, role)
       }
       return true
     }
@@ -34,30 +35,28 @@ function filterAsyncRouter (asyncRouterMap, roles) {
 
 // initial state
 const state = {
-  routers: deepClone(constantRouterMap),
-  addRouters: []
+  routers: filterRouter(deepClone(routerMap), 'visitor')
 }
 
 // getters
 const getters = {
-  permissionRouters () {
+  permissionRouters (role) {
     return state.routers
-  },
-  addRouters () {
-    return state.addRouters
   }
 }
 
 // actions (异步操作)
 const actions = {
-  GenerateRoutes ({ commit }, data) {
+  generateRoutes ({ commit }, data) {
+    const routers = deepClone(routerMap)
+
     return new Promise(resolve => {
-      const { roles } = data
+      const { role } = data
       let accessedRouters
-      if (roles.indexOf('admin') >= 0) {
-        accessedRouters = asyncRouterMap
+      if (role.indexOf('admin') >= 0) {
+        accessedRouters = routers
       } else {
-        accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
+        accessedRouters = filterRouter(routers, role)
       }
       commit('SET_ROUTERS', accessedRouters)
       resolve()
@@ -68,8 +67,7 @@ const actions = {
 // mutations (非异步操作)
 const mutations = {
   SET_ROUTERS: (state, routers) => {
-    state.addRouters = deepClone(routers)
-    state.routers = deepClone(constantRouterMap.concat(routers))
+    state.routers = deepClone(routers)
   }
 }
 

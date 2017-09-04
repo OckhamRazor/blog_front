@@ -38,24 +38,28 @@ instance.interceptors.response.use(
     return response.data
   },
   error => {
+    console.log('error.response.status:', error.response.status)
     if (error.response) {
       switch (error.response.status) {
         case 401:
           // 401 清除token信息并跳转到登录页面
-          // store.commit('SIGN_OUT')
-          store.commit('OPEN_DIALOG', 0)
+          store.commit('SIGN_OUT')
+          router.replace({
+            path: '/401',
+            query: {redirect: router.currentRoute.fullPath}
+          })
           break
         case 404:
           // 跳转到404页面
           router.replace({
-            path: '404',
+            path: '/404',
             query: {redirect: router.currentRoute.fullPath}
           })
           break
         case 500:
           // 跳转到500页面
           router.replace({
-            path: '500',
+            path: '/500',
             query: {redirect: router.currentRoute.fullPath}
           })
           break
@@ -75,25 +79,22 @@ const getRequest = (url, data) => {
 }
 // POST 创建一个新资源
 const postRequest = (url, data) => {
-  return instance
-    .post(url, data)
-    .catch(handleError)
-}
-// POST 创建一个新资源
-const postJSONRequest = (url, data) => {
   data = Qs.stringify(data)
   return instance
     .post(url, data)
     .catch(handleError)
 }
+
 // PATCH 更新指定信息
 const patchRequest = (url, data) => {
+  data = Qs.stringify(data)
   return instance
     .patch(url, data)
     .catch(handleError)
 }
 // PUT 提供所有信息
 const putRequest = (url, data) => {
+  data = Qs.stringify(data)
   return instance
     .put(url, data)
     .catch(handleError)
@@ -116,7 +117,6 @@ function handleData (data) {
 }
 
 export default {
-  postJSON: postJSONRequest,
   post: postRequest,
   get: getRequest,
   patch: patchRequest,

@@ -1,47 +1,44 @@
 <template>
   <ul class="category" v-if="list">
-    <li class="categpry-item" :class="{active: item.code === cateGoryCode}" v-for="(item, index) in list" :key="item.code" @click="queryByCode(item)">
+    <li class="categpry-item" :class="{active: category === 'all'}" key='category-all' @click="queryByCategory('all')">
+      <span>全部</span>
+      <span>({{amount}})</span>
+    </li>
+    <li class="categpry-item" :class="{active: item.id === category}" v-for="(item, index) in list" :key="'category-' + item.id" @click="queryByCategory(item.id)">
       <span>{{item.name}}</span>
-      <span>({{item.total}})</span>
+      <span>({{item.count}})</span>
     </li>
   </ul>
 </template>
 
 <script>
-  import Article from '@/api/article'
   import { mapGetters } from 'vuex'
 
   export default {
     name: 'ArticleCategoryCard',
     computed: {
       ...mapGetters({
-        cateGoryCode: 'getCateGoryCode'
-      })
+        category: 'getCategory'
+      }),
+      amount () {
+        let _amount = 0
+        this.list.map((item, index) => {
+          _amount += item.count
+        })
+        return _amount
+      }
     },
-    data () {
-      return {
-        list: null
-        // queryParams: this.$store.article.queryParams
+    props: {
+      list: {
+        type: Array,
+        default: []
       }
     },
     methods: {
-      async getCategoryList () {
-        const result = await Article.getCategoryList()
-
-        const data = result.data
-        this.list = data.list
-
-        if (this.list.length > 0) {
-          this.queryByCode(this.list[0])
-        }
-      },
-      // 通过分类码获取列表
-      queryByCode (item) {
-        this.$store.commit('SET_QUERY_CODE', item.code)
+      // 更新分类ID
+      queryByCategory (category) {
+        this.$store.commit('SET_QUERY_CATEGORY', category)
       }
-    },
-    created () {
-      this.getCategoryList()
     }
   }
 </script>

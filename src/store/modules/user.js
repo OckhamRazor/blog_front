@@ -3,16 +3,17 @@ import { getToken, removeToken } from '@/utils/auth'
 // initial state
 const state = {
   token: getToken(),
-  roles: [],
+  role: 'visitor',
   username: '',
   avatar: '',
+  email: '',
   introduction: ''
 }
 
 // getters
 const getters = {
-  roles () {
-    return state.roles
+  role () {
+    return state.role
   }
 }
 
@@ -21,7 +22,7 @@ const actions = {
   async getUserInfo ({commit, state}) {
     const result = await User.getUserInfo()
     const data = result.data || {}
-    commit('SET_ROLES', data.roles)
+    commit('SET_ROLE', data.role)
     commit('SET_NAME', data.username)
     commit('SET_AVATAR', data.avatar)
     commit('SET_INTRODUCTION', data.introduction)
@@ -35,14 +36,14 @@ const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
   },
-  SET_ROLES: (state, roles) => {
-    state.roles = roles
+  SET_ROLE: (state, role) => {
+    state.role = role
   },
   SET_NAME: (state, name) => {
     state.name = name
   },
   SET_AVATAR: (state, avatar) => {
-    state.avatar = avatar
+    state.avatar = avatar || '/static/images/avatar-placeholder.jpg'
   },
   SET_INTRODUCTION: (state, introduction) => {
     state.introduction = introduction

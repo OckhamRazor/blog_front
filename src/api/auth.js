@@ -4,6 +4,11 @@ export default {
 
   // 登录
   signIn (queryParams) {
-    return http.postJSON('/auth', queryParams)
+    return http.post('/auth', queryParams)
+  },
+
+  // Github OAuth登录
+  signInByGithub (data) {
+    return http.post('/auth/github', data)
   }
 }

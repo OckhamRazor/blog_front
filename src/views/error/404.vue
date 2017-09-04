@@ -2,20 +2,17 @@
   <div class="container">
     <div class="page-content">
       <h1>404</h1>
-      <p>飞虫会快会吞噬这里，尽快离开这里吧</p>
+      <md-button class="md-raised md-primary" @click="backHome">返回首页</md-button>
     </div>
   </div>
 </template>
 <script>
-  import BugController from '@/assets/js/animation/bug'
   export default {
-    name: 'Page404',
-    mounted () {
-      new BugController({ // eslint-disable-line
-        mouseOver: 'die',
-        zoom: 15,
-        imageSprite: '/static/images/fly-sprite.png'
-      })
+    name: 'Err404',
+    methods: {
+      backHome () {
+        this.$router.push('/')
+      }
     }
   }
 </script>
@@ -28,17 +25,7 @@
   align-items: center;
 }
 .page-content {
-  flex: 1;
-}
-
-.page-content{
+  width: 100%;
   text-align: center;
-  & > h1 {
-    font-size: 1rem;
-    font-weight: normal;
-  }
-  & > p {
-    font-size: .6rem;
-  }
 }
 </style>

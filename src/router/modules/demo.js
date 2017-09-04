@@ -10,8 +10,18 @@ const router = [
     hidden: false,
     noDropdown: true,
     redirect: '/demo/',
+    meta: {
+      requireAuth: true,
+      roles: ['admin']
+    },
     children: [
-      { path: '', component: DemoPage, name: '组件使用Demo', role: ['admin'] }
+      {
+        path: '',
+        requireAuth: true,
+        role: ['admin'],
+        component: DemoPage,
+        name: '组件使用Demo'
+      }
     ]
   }
 ]

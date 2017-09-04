@@ -1,12 +1,12 @@
 <template>
   <div>
-    401
+    500
   </div>
 </template>
 <script>
-export default {
-  name: 'Err401'
-}
+  export default {
+    name: 'Err500'
+  }
 </script>
 <style lang="scss" scoped>
 

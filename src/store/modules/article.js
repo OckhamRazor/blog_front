@@ -2,7 +2,7 @@
 const state = {
   // 文章列表
   queryParams: {
-    code: null,
+    category: 'all',
     keywords: null
   }
 }
@@ -15,8 +15,8 @@ const getters = {
   getQueryParamsKeywords () {
     return state.queryParams.keywords
   },
-  getCateGoryCode () {
-    return state.queryParams.code
+  getCategory () {
+    return state.queryParams.category
   }
 }
 
@@ -26,8 +26,8 @@ const actions = {
 
 // mutations (非异步操作)
 const mutations = {
-  SET_QUERY_CODE: (state, code) => {
-    state.queryParams.code = code
+  SET_QUERY_CATEGORY: (state, category) => {
+    state.queryParams.category = category
   },
   SET_QUERY_KEYWORDS: (state, keywords) => {
     state.queryParams.keywords = keywords

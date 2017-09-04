@@ -5,8 +5,9 @@
       class="markdown-editor"
       :ishljs="false"
       :subfield="true"
-      v-model="plainText"
+      :value="plainText"
       code_style="code-hybrid"
+      @change="change"
       @save="save"
       @imgAdd="imgAdd"
       @fullscreen="fullScreen"></mavon-editor>
@@ -15,7 +16,9 @@
 
 <script>
   import Article from '@/api/article'
-  const escapeGoat = require('escape-goat')
+  import Upload from '@/api/upload'
+  import Config from '@/config/index'
+  import { escape } from '@/utils/index'
 
   export default {
     name: 'ArticleEditor',
@@ -31,16 +34,17 @@
     },
     data () {
       return {
-        value: ''
+        uploadData: {},
+        myPlainText: this.plainText
       }
     },
     methods: {
+      change (value, render) {
+        this.$emit('change', value, render)
+      },
       async save (value, render) {
-        let plainText = escapeGoat.escape(value)
-        let html = escapeGoat.escape(render)
-
-        plainText = plainText.replace(/\n/g, '\\n').replace(/\r/g, '\\r') // 替换换行符
-        html = html.replace(/\n/g, '\\n').replace(/\r/g, '\\r') // 替换换行符
+        let plainText = escape(value)
+        let html = escape(render)
 
         var _result = await Article.save(this.id, {
           html: html,
@@ -62,15 +66,23 @@
         if (typeof file === 'undefined') return
         let formdata = new FormData()
 
-        for (var item in file) {
-          formdata.append(item, file[item])
-        }
+        formdata.append('file', file, file.name)
+        formdata.append('token', this.uploadData.token)
 
-        const result = await Article.upload(formdata)
-        const data = result.data
-        this.$refs.markdownEditor.$imgUpdateByUrl(filename, data.url)
-        this.$refs.markdownEditor.$img2Url(filename, data.url)
+        const result = await Upload.upload(formdata)
+        const key = result.data && result.data.key
+        let url = Config.cdn + key
+
+        this.$refs.markdownEditor.$imgUpdateByUrl(filename, url)
+        this.$refs.markdownEditor.$img2Url(filename, url)
+      },
+      async getUploadToken () {
+        const result = await Upload.getUploadToken()
+        this.uploadData.token = result.token
       }
+    },
+    created () {
+      this.getUploadToken()
     }
   }
 </script>

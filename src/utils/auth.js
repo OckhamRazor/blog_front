@@ -1,15 +1,17 @@
-import store from 'storejs'
+import WebStorageCache from 'web-storage-cache'
 
-const TokenKey = 'Admin-Token'
+let wsCache = new WebStorageCache()
+
+const TokenKey = 'token'
 
 export function getToken () {
-  return store.get(TokenKey)
+  return wsCache.get(TokenKey)
 }
 
-export function setToken (token) {
-  return store.set(TokenKey, token)
+export function setToken (token, exp) {
+  return wsCache.set(TokenKey, token, {exp: exp})
 }
 
 export function removeToken () {
-  return store.remove(TokenKey)
+  return wsCache.delete(TokenKey)
 }

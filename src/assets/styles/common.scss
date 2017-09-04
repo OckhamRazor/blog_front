@@ -36,8 +36,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 { text-shadow: rgba(0, 0, 0
 }
 
 .svg-icon {
-  width: $_18px;
-  height: $_18px !important;
+  width: $_24px;
+  height: $_24px !important;
   fill: currentColor;
   overflow: hidden;
 }
@@ -95,3 +95,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 { text-shadow: rgba(0, 0, 0
   z-index: 999;
 }
 
+
+.text-align-right {
+  text-align: right;
+}
+.text-align-left {
+  text-align: left;
+}
+.text-align-center {
+  text-align: left;
+}

@@ -1,7 +1,7 @@
 <template>
 	<section>
     <!-- <transition name="page-change" enter-active-class="animated fadeIn"> -->
-      <keep-alive :exclude="['ArticleEditor', 'Article']">
+      <keep-alive :exclude="['ArticleEditor', 'Article', 'Profile', 'ArticleEdit']">
         <!-- <router-view :key="key"></router-view> -->
         <router-view></router-view>
       </keep-alive>

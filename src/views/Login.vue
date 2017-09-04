@@ -27,6 +27,11 @@
           <md-button type="submit" class="md-raised md-primary login-button">登录</md-button>
         </md-card-actions>
       </form>
+      <div>
+        <a :href="githubOAuth">
+          <ra-icon-svg icon="icon-github" style="cursor: pointer;"></ra-icon-svg>
+        </a>
+      </div>
     </md-card>
   </div>
 </template>
@@ -35,6 +40,7 @@
   import Auth from '@/api/auth'
   import { setToken } from '@/utils/auth'
   import { required } from 'vuelidate/lib/validators'
+  import Config from '../config/index'
 
   export default {
     name: 'login',
@@ -45,6 +51,7 @@
           password: ''
         },
         message: '',
+        githubOAuth: Config.github.oauth,
         loading: false
       }
     },
@@ -82,10 +89,13 @@
       },
 
       handleResult (result) {
-        const status = result.status
+        const success = result.success
         const data = result.data
-        if (status === 'success') {
-          setToken(data.token) // 存储token至localStorage
+        if (success) {
+          let exp = new Date()
+          exp.setHours(exp.getHours() + (data.exp || 10))
+
+          setToken(data.token, exp) // 存储token至localStorage
           this.$store.commit('SET_TOKEN', data.token)
           this.$router.push({path: this.$route.query.redirect || '/'})
         } else {

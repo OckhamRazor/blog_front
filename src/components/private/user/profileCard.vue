@@ -1,58 +1,69 @@
 <template>
-  <div class="user-container">
-    <div>
-      <h5 class="title">关于</h5>
-      <div>
-        <img :src="user.avatar" alt="Avatar" class="avatar">
-      </div>
-      <p>
-        <router-link :to="user.profile">个人介绍</router-link>
-      </p>
-    </div>
-    <div>
-      <h5 class="title">Fllow Me</h5>
-      <a :href="user.github" target="_blank">
-        <ra-icon-svg icon="icon-github" class="contact-icon"/>
-      </a>
-    </div>
+  <div class="container">
+    <md-card class="profile-card">
+      <md-card-media>
+        <div class="avatar" :style="{backgroundImage: avatar}"></div>
+      </md-card-media>
+
+      <md-card-header class="profile-header">
+        <div class="md-title">{{user.name}}</div>
+        <div class="md-subhead">{{user.introduction}}</div>
+      </md-card-header>
+
+      <md-card-actions class="profile-footer">
+        <md-button @click="editProfile">个人信息</md-button>
+        <md-button @click="signOut">退出</md-button>
+      </md-card-actions>
+    </md-card>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'UserProfileCard',
-    data () {
-      return {
-        user: {
-          avatar: '/static/images/music-8.jpg',
-          profile: '/article/00001',
-          articleAmount: 120,
-          github: 'https://github.com/OckhamRazor'
-        }
-      }
+import {mapState} from 'vuex'
+export default {
+  name: 'profileCard',
+  props: {
+    close: {
+      type: Function
+    }
+  },
+  computed: {
+    ...mapState({
+      user: state => state.user
+    }),
+    avatar () {
+      return 'url("' + this.user.avatar + '")'
+    }
+  },
+  methods: {
+    editProfile () {
+      this.$router.push('/user/profile')
+      this.close()
+    },
+    signOut () {
+      this.$store.commit('SIGN_OUT')
     }
   }
+}
 </script>
-
 <style lang="scss" scoped>
-@import '~@/assets/styles/vars.scss';
-
+.profile-card {
+  width: 100%;
+}
 .avatar {
-  width: $_128px;
+  width: 100%;
+  height: 200px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-origin: 50%;
 }
-.title {
-  font-size: $_16px;
-  font-weight: normal;
-  margin: $_10px 0;
+.profile-header {
+  padding-top: 12px !important;
+  padding-bottom: 12px;
 }
-.contact-icon {
-  width: $_32px;
-  height: $_32px !important;
-  color: #555;
-  transition: color .3s ease;
-
-  &:hover {
-    color: black;
-  }
+.profile-footer {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
+
