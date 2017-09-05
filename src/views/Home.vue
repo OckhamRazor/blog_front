@@ -5,7 +5,16 @@
         <img src="~@/assets/images/date_live/Efreet_grey.png">
         <span class="home-title">GC'S</span>
       </div>
-      <div class="color-block-link"></div>
+      <div class="color-block-link">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveAspectRatio="none" viewBox="0,0,300,40">
+          <polygon points="0,0 300,40 0,40"
+              style="fill:rgb(255,255,255);"/>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveAspectRatio="none" viewBox="0,0,300,40">
+          <polygon points="0,0 300,40 0,40"
+              style="fill:rgba(0,0,0,.8);"/>
+        </svg>
+      </div>
     </div>
     <div class="color-block bottom-block">
       <div class="content-wrapper animated slideInRight">
@@ -107,21 +116,18 @@ export default {
   height: 100px;
   width: 100%;
 
-  &:before, &:after {
-    content: '';
-    display: block;
-    @include alb;
+  svg {
+    @include alt;
     width: 100%;
-    height: 100px;
-  }
-  &:before {
-    z-index: 4;
-    background: linear-gradient(to right top, rgba(0,0,0,.8), rgba(0,0,0,.8) 50%, transparent 50%, transparent);
+    height: 100%;
   }
 
-  &:after {
+  svg:first-child {
     z-index: 3;
-    background: linear-gradient(to right top, white, white 50%, transparent 50%, transparent);
+  }
+
+  svg:last-child {
+    z-index: 4;
   }
 }
 .home-menu {
