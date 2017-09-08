@@ -1,5 +1,3 @@
-@import './vars.scss';
-
 body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 {font-family: "Roboto","Microsoft YaHei","黑体","宋体",sans-serif; }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 { text-shadow: rgba(0, 0, 0, .15) 0 0 1px; }
 
@@ -23,7 +21,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 { text-shadow: rgba(0, 0, 0
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
-  font-size: $_24px;
+  font-size: 24px;
   line-height: 1;
   letter-spacing: normal;
   text-transform: none;
@@ -35,73 +33,3 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 { text-shadow: rgba(0, 0, 0
   -webkit-font-smoothing: antialiased;
 }
 
-.svg-icon {
-  width: $_24px;
-  height: $_24px !important;
-  fill: currentColor;
-  overflow: hidden;
-}
-
-.cxlt-toastr-container > div {
-  width: $_300px;
-  margin: 0 0 $_6px;
-  padding: $_16px $_16px $_16px $_50px;
-  border-radius: 2px 2px 2px 2px;
-  background-position: $_16px center;
-  box-shadow: 0 0 $_12px $_-2px #999999;
-}
-.cxlt-toastr-container > :hover {
-  box-shadow: 0 0 $_12px $_-2px #000000;
-}
-
-.alert {
-  padding: $_16px;
-  border: 1px solid transparent;
-  border-radius: $_4px;
-}
-.alert-success {
-  color: #4caf50;
-  background-color: rgba(200, 230, 201, .8);
-  border-color: #c8e6c9;
-}
-.alert-info {
-  color: #00bcd4;
-  background-color: rgba(178, 235, 242, .8);
-  border-color: #b2ebf2;
-}
-.alert-warning {
-  color: #ff9800;
-  background-color: rgba(255, 224, 178, .8);
-  border-color: #ffe0b2;
-}
-.alert-danger {
-  color: #f44336;
-  background-color: rgba(255, 205, 210, .8);
-  border-color: #ffcdd2;
-}
-
-.md-button.md-raised {
-  pointer-events: auto;
-  cursor: pointer;
-}
-.md-button[disabled].md-raised {
-  cursor: not-allowed;
-}
-.md-list {
-  padding: 0;
-}
-.md-menu-content {
-  min-height: 0;
-  z-index: 999;
-}
-
-
-.text-align-right {
-  text-align: right;
-}
-.text-align-left {
-  text-align: left;
-}
-.text-align-center {
-  text-align: left;
-}

@@ -1,28 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
-// login
-import Login from '@/views/Login'
-import OAuth from '@/views/OAuth'
+const _import = require('./_import_' + process.env.NODE_ENV)
 
 // layout
-import Layout from '@/views/layout/Layout'
-// Error Page
-import Err401 from '@/views/error/401'
-import Err404 from '@/views/error/404'
-import Err500 from '@/views/error/500'
-
+import Layout from '@/views/layout/layout'
 // home
-import Home from '@/views/Home.vue'
+import Home from '@/views/home'
 // article
-import Article from '@/views/article/index.vue'
-import ArticleList from '@/views/article/list.vue'
-import ArticleEdit from '@/views/article/edit.vue'
-import ArticleAdd from '@/views/article/add.vue'
-// user
-import Profile from '@/views/user/profile.vue'
-// more
-// import More from '@/views/More.vue'
+import Article from '@/views/article/read/index.vue'
+import ArticleList from '@/views/article/list/index.vue'
+import ArticleEdit from '@/views/article/edit/index.vue'
+import ArticleAdd from '@/views/article/add/index.vue'
+
 // route
 import demoRouter from './modules/demo'
 
@@ -32,7 +21,7 @@ export const routerMap = [
   ...demoRouter,
   {
     path: '/401',
-    component: Err401,
+    component: _import('error/401'),
     hidden: true,
     meta: {
       requireAuth: false,
@@ -41,7 +30,7 @@ export const routerMap = [
   },
   {
     path: '/404',
-    component: Err404,
+    component: _import('error/404'),
     hidden: true,
     meta: {
       requireAuth: false,
@@ -50,7 +39,7 @@ export const routerMap = [
   },
   {
     path: '/500',
-    component: Err500,
+    component: _import('error/500'),
     hidden: true,
     meta: {
       requireAuth: false,
@@ -59,7 +48,7 @@ export const routerMap = [
   },
   {
     path: '/login/callback',
-    component: OAuth,
+    component: _import('oauth'),
     hidden: true,
     meta: {
       requireAuth: false,
@@ -78,25 +67,13 @@ export const routerMap = [
     }
   },
   {
-    path: '/login',
-    component: Login,
-    name: '登录',
-    hidden: false,
-    noDropdown: true,
-    meta: {
-      requireAuth: true,
-      roles: ['visitor'],
-      title: '登录'
-    }
-  },
-  {
     path: '/article',
     component: Layout,
     redirect: '/article/list',
     name: '文章',
     icon: 'chrome_reader_mode',
     hidden: false,
-    noDropdown: true,
+    dropDown: true,
     meta: {
       requireAuth: false
     },
@@ -124,7 +101,7 @@ export const routerMap = [
       {
         path: 'add',
         component: ArticleAdd,
-        name: '新增文章',
+        name: '写文章',
         hidden: false,
         meta: {
           requireAuth: true,
@@ -147,43 +124,31 @@ export const routerMap = [
   {
     path: '/user',
     component: Layout,
-    name: '用户中心',
-    redirect: '/user/profile',
+    redirect: '/user/',
+    name: '个人中心',
     icon: 'person',
     hidden: false,
-    noDropdown: false,
+    dropdown: false,
     meta: {
       requireAuth: true,
       roles: ['user', 'admin']
     },
     children: [
       {
-        path: 'profile',
-        component: Profile,
-        name: '个人信息',
-        hidden: false,
+        path: '',
+        component: _import('user/userCenter'),
+        hidden: true,
         meta: {
-          title: '个人信息',
           requireAuth: true,
-          roles: ['user', 'admin']
-        }
-      },
-      {
-        path: 'account',
-        component: Profile,
-        name: '账号设置',
-        hidden: false,
-        meta: {
-          title: '账号设置',
-          requireAuth: true,
-          roles: ['user', 'admin']
+          roles: ['user', 'admin'],
+          title: '个人中心'
         }
       }
     ]
   },
   {
     path: '*',
-    component: Err404,
+    component: _import('error/404'),
     hidden: true,
     meta: {
       requireAuth: false

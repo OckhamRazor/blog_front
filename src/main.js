@@ -2,9 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueMaterial from 'vue-material'
 import Vuelidate from 'vuelidate'
-import CxltToastr from 'cxlt-vue2-toastr'
 import mavonEditor from 'mavon-editor'
-import RaComponents from '@/components/public/index'
 import VueWeChatTitle from 'vue-wechat-title'
 
 // locale
@@ -13,38 +11,34 @@ import VueWeChatTitle from 'vue-wechat-title'
 import 'normalize.css'
 import 'vue-material/dist/vue-material.css'
 import 'animate.css'
-import 'cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css'
 import 'mavon-editor/dist/css/index.css'
-import '@/assets/styles/remLayout.scss'
 import '@/assets/styles/common.scss'
 // fonts
 import '@/assets/js/iconfont'
 // components
-import App from './App.vue'
+import App from '@/App.vue'
 // others
-import store from './store'
-import router from './router'
+import store from '@/store'
+import router from '@/router'
+import i18n from '@/i18n'
 // theme
-import registerTheme from '@/assets/js/customTheme'
+import registerTheme from '@/assets/js/theme'
+// directives
+import registerDirectives from '@/assets/js/directives'
+// global components
+import customComponents from '@/components'
 
 Vue.use(VueRouter)
 Vue.use(VueMaterial)
 Vue.use(Vuelidate)
 Vue.use(mavonEditor)
 Vue.use(VueWeChatTitle)
-Vue.use(RaComponents)
-
-var toastrConfigs = {
-  position: 'bottom right',
-  successColor: '#4caf50',
-  infoColor: '#00bcd4',
-  warningColor: '#ff9800',
-  errorColor: '#f44336'
-}
-Vue.use(CxltToastr, toastrConfigs)
+Vue.use(customComponents)
 
 // 注册主题
 registerTheme()
+// 注册全局指令
+registerDirectives()
 
 Vue.config.productionTip = false
 
@@ -52,5 +46,8 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')
+
+Vue.material.setCurrentTheme('daliy')

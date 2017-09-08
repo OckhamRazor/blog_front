@@ -18,10 +18,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '../assets/styles/vars.scss';
 .main-title {
   text-align: center;
-  margin: $_50px auto;
+  margin: 50px auto;
 }
 .wave-container {
   width: 300px;

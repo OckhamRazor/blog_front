@@ -1,6 +1,6 @@
 // demo页面
-import Layout from '@/views/layout/Layout'
-import DemoPage from '@/views/demo/Page'
+import Layout from '@/views/layout/layout.vue'
+import DemoPage from '@/views/demo/demo.vue'
 
 const router = [
   {

@@ -1,30 +1,39 @@
 <template>
-  <md-toolbar class="md-dense container" md-theme="custom">
-    <div class="content-wrapper">
-      <md-button class="md-icon-button" @click="toggleSideBar">
-        <md-icon>menu</md-icon>
-      </md-button>
-      <div v-if="role !== 'visitor'">
-        <md-menu md-align-trigger ref="profile" md-direction="bottom left">
-          <md-button md-menu-trigger class="md-icon-button">
+  <div>
+    <md-toolbar class="md-dense container">
+      <div class="content-wrapper">
+        <md-button class="md-icon-button" @click="toggleSideBar">
+          <md-icon>menu</md-icon>
+        </md-button>
+        <div>
+          <md-button class="md-icon-button"  v-if="role === 'visitor'" id="login" @click="openLoginDialog()">
             <md-icon>person</md-icon>
           </md-button>
-          <md-menu-content class="profile-card">
-            <profile-card :close="closeAvatar"></profile-card>
-          </md-menu-content>
-        </md-menu>
+          <md-menu v-if="role !== 'visitor'" md-align-trigger ref="profile" md-direction="bottom left">
+            <md-avatar md-menu-trigger >
+              <img :src="avatar" alt="Avatar">
+            </md-avatar>
+            <md-menu-content class="profile-card">
+              <profile-card :close="closeAvatar"></profile-card>
+            </md-menu-content>
+          </md-menu>
+        </div>
       </div>
-    </div>
-  </md-toolbar>
+    </md-toolbar>
+    <login-dialog @click="openLoginDialog"></login-dialog>
+  </div>
 </template>
+
 <script>
 import { mapState } from 'vuex'
-import profileCard from '@/components/private/user/profileCard'
+import profileCard from '@/views/user/profileCard'
+import loginDialog from '@/views/login/loginDialog'
 
 export default {
   name: 'Navbar',
   components: {
-    profileCard
+    profileCard,
+    loginDialog
   },
   data () {
     return {
@@ -32,7 +41,10 @@ export default {
   },
   computed: {
     ...mapState({
-      role: state => state.user.role
+      role: state => state.user.role,
+      avatar: state => {
+        return state.user.avatar
+      }
     })
   },
   methods: {
@@ -41,19 +53,21 @@ export default {
     },
     closeAvatar () {
       this.$refs.profile.close()
+    },
+    openLoginDialog () {
+      this.$store.commit('OPEN_LOGIN_DIALOG')
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-@import '../../assets/styles/vars.scss';
 @import '../../assets/styles/mixins.scss';
 
 .container {
   display: flex;
 }
 .content-wrapper {
-  max-width: 24rem;
+  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -62,11 +76,11 @@ export default {
   justify-content: space-between;
 }
 .navbar-title {
-  height: $_48px;
-  line-height: $_48px;
+  height: 48px;
+  line-height: 48px;
   margin: 0;
 }
 .profile-card {
-  width: $_250px;
+  width: 250px;
 }
 </style>

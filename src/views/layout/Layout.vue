@@ -30,8 +30,6 @@
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/styles/vars.scss';
-
 .app-wrapper {
   display: flex;
   flex: 1;
@@ -39,10 +37,10 @@
   min-height: 100vh;
 }
 .main-sidebar {
-  z-index: 1000;
+  z-index: 99;
 }
 .main-sidebar.md-sidenav .md-sidenav-content {
-  width: 5.6rem;
+  width: 280px;
   display: flex;
   flex-flow: column;
   overflow: hidden;
@@ -59,16 +57,16 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 98;
   width: 100%
 }
 .sidebar {
-  z-index: 1000;
+  z-index: 99;
 }
 .app-main {
-  margin: $_64px auto $_50px auto;
-  max-width: 24rem;
+  margin: 64px auto 50px auto;
+  max-width: 1200px;
   width: 100%;
-  padding: 0 $_16px;
+  padding: 0 16px;
 }
 </style>

@@ -1,17 +1,23 @@
-import store from 'storejs'
-
 // initial state
 const state = {
   sidebar: {
-    opened: !+store.get('sidebarStatus')
+    opened: false
   },
-  theme: 'default'
+  theme: 'default',
+  appName: 'GC\'S World',
+  loginDialog: {
+    opened: false
+  }
 }
 
 // getters
 const getters = {
   getSideBarStatus () {
     return state.sidebar.opened
+  },
+
+  getLoginDialogStatus () {
+    return state.loginDialog.opened
   }
 }
 
@@ -23,12 +29,15 @@ const actions = {
 // mutations (非异步操作)
 const mutations = {
   TOGGLE_SIDEBAR: state => {
-    if (state.sidebar.opened) {
-      store.set('sidebarStatus', 1)
-    } else {
-      store.set('sidebarStatus', 0)
-    }
     state.sidebar.opened = !state.sidebar.opened
+  },
+  // 打开登录窗口
+  OPEN_LOGIN_DIALOG: state => {
+    state.loginDialog.opened = true
+  },
+  // 关闭登录窗口
+  CLOSE_LOGIN_DIALOG: state => {
+    state.loginDialog.opened = false
   }
 }
 

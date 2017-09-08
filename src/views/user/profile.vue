@@ -81,18 +81,12 @@ export default {
     async edit (value) {
       value.$touch() // 手动验证表单
       if (!value.$error) {
-        const result = await User.editUserInfo(this.user)
-        if (result.success) {
+        const _result = await User.editUserInfo(this.user)
+        if (_result.success) {
           this.getUserInfo()
-          this.$toast.success({
-            title: '操作成功',
-            message: result.message || ''
-          })
+          alert(_result.message)
         } else {
-          this.$toast.error({
-            title: '操作失败',
-            message: result.message || ''
-          })
+          alert(_result.message)
         }
       }
     },

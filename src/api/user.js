@@ -1,15 +1,15 @@
-import http from '../config/http'
+import http from '@/config/http'
 
 export default {
   // 获取用户信息
   getUserInfo (queryParams) {
-    return http.get('/user', {
+    return http.get('/users', {
       params: queryParams
     })
   },
 
   // 编辑用户信息
   editUserInfo (queryParams) {
-    return http.put('/user', queryParams)
+    return http.put('/users', queryParams)
   }
 }
